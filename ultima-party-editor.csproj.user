@@ -4,6 +4,9 @@
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UltimaIV\CharacterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="UltimaIV\UltimaIVEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

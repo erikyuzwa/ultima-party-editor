@@ -15,8 +15,32 @@ public sealed class UltimaIVSaveFile
     private const int GoldOffset =
         0x144;
 
+    private const int CharacterBaseOffset =
+    0x08;
+
+    private const int CharacterRecordSize =
+        39;
+
+    public const int CharacterCount =
+        8;
+
     private byte[] bytes =
         Array.Empty<byte>();
+
+    private readonly PartyCharacter[] characters =
+    new PartyCharacter[CharacterCount];
+
+    public UltimaIVSaveFile()
+    {
+        for (int i = 0;
+         i < CharacterCount;
+         i++)
+        {
+            characters[i] =
+                new PartyCharacter();
+        }
+
+    }
 
     public string? Filename
     {
@@ -67,6 +91,13 @@ public sealed class UltimaIVSaveFile
 
         bytes = data;
 
+        for (int i = 0;
+         i < CharacterCount;
+         i++)
+        {
+            ReadCharacter(i);
+        }
+
         Filename = filename;
     }
 
@@ -87,6 +118,13 @@ public sealed class UltimaIVSaveFile
 
         CreateBackup(Filename);
 
+        for (int i = 0;
+            i < CharacterCount;
+            i++)
+        {
+            WriteCharacter(i);
+        }
+
         File.WriteAllBytes(
             Filename,
             bytes);
@@ -99,6 +137,13 @@ public sealed class UltimaIVSaveFile
         {
             throw new InvalidOperationException(
                 "No PARTY.SAV file is loaded.");
+        }
+
+        for (int i = 0;
+            i < CharacterCount;
+            i++)
+        {
+            WriteCharacter(i);
         }
 
         CreateBackup(filename);
@@ -167,5 +212,185 @@ public sealed class UltimaIVSaveFile
                     offset,
                     4),
                 value);
+    }
+
+    private string ReadFixedString(
+    int offset,
+    int length)
+    {
+        int count = 0;
+
+        while (count < length &&
+               bytes[offset + count] != 0)
+        {
+            count++;
+        }
+
+        return System.Text.Encoding.ASCII.GetString(
+            bytes,
+            offset,
+            count);
+    }
+
+    private void WriteFixedString(
+    int offset,
+    int length,
+    string value)
+    {
+        Array.Clear(
+            bytes,
+            offset,
+            length);
+
+        byte[] encoded =
+            System.Text.Encoding.ASCII.GetBytes(
+                value);
+
+        int count =
+            Math.Min(
+                encoded.Length,
+                length);
+
+        Array.Copy(
+            encoded,
+            0,
+            bytes,
+            offset,
+            count);
+    }
+
+    public PartyCharacter GetCharacter(
+    int index)
+    {
+        if (index < 0 ||
+            index >= CharacterCount)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(index));
+        }
+
+        return characters[index];
+    }
+
+    private void ReadCharacter(
+    int index)
+    {
+        int offset =
+            CharacterBaseOffset +
+            index * CharacterRecordSize;
+
+        PartyCharacter character =
+            characters[index];
+
+        character.HitPoints =
+            ReadUInt16(offset + 0x00);
+
+        character.MaxHitPoints =
+            ReadUInt16(offset + 0x02);
+
+        character.Experience =
+            ReadUInt16(offset + 0x04);
+
+        character.Strength =
+            ReadUInt16(offset + 0x06);
+
+        character.Dexterity =
+            ReadUInt16(offset + 0x08);
+
+        character.Intelligence =
+            ReadUInt16(offset + 0x0A);
+
+        character.MagicPoints =
+            ReadUInt16(offset + 0x0C);
+
+        character.Unknown =
+            ReadUInt16(offset + 0x0E);
+
+        character.Weapon =
+            (WeaponType)
+                ReadUInt16(offset + 0x10);
+
+        character.Armor =
+            (ArmorType)
+                ReadUInt16(offset + 0x12);
+
+        character.Name =
+            ReadFixedString(
+                offset + 0x14,
+                16);
+
+        character.Sex =
+            bytes[offset + 0x24];
+
+        character.ClassType =
+            bytes[offset + 0x25];
+
+        character.Status =
+            bytes[offset + 0x26];
+    }
+
+    private void WriteCharacter(
+    int index)
+    {
+        int offset =
+            CharacterBaseOffset +
+            index * CharacterRecordSize;
+
+        PartyCharacter character =
+            characters[index];
+
+        WriteUInt16(
+            offset + 0x00,
+            character.HitPoints);
+
+        WriteUInt16(
+            offset + 0x02,
+            character.MaxHitPoints);
+
+        WriteUInt16(
+            offset + 0x04,
+            character.Experience);
+
+        WriteUInt16(
+            offset + 0x06,
+            character.Strength);
+
+        WriteUInt16(
+            offset + 0x08,
+            character.Dexterity);
+
+        WriteUInt16(
+            offset + 0x0A,
+            character.Intelligence);
+
+        WriteUInt16(
+            offset + 0x0C,
+            character.MagicPoints);
+
+        WriteUInt16(
+            offset + 0x0E,
+            character.Unknown);
+
+        WriteUInt16(
+            offset + 0x10,
+            (ushort)character.Weapon);
+
+        WriteUInt16(
+            offset + 0x12,
+            (ushort)character.Armor);
+
+        WriteFixedString(
+            offset + 0x14,
+            16,
+            character.Name);
+
+        bytes[offset + 0x24] =
+            character.Sex;
+
+        bytes[offset + 0x25] =
+            character.ClassType;
+
+        bytes[offset + 0x26] =
+            character.Status;
     }
 }

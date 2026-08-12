@@ -6,8 +6,9 @@ public class UltimaIVEditorControl
     : UserControl,
       IGameEditor
 {
-    private readonly UltimaIVSaveFile save =
-        new();
+    private readonly UltimaIVSaveFile save = new();
+
+    private readonly CharacterPanel characterPanel;
 
     private readonly NumericUpDown goldNumeric;
     private readonly NumericUpDown foodNumeric;
@@ -78,12 +79,24 @@ public class UltimaIVEditorControl
         Controls.Add(foodNumeric);
         Controls.Add(goldLabel);
         Controls.Add(goldNumeric);
+
+        characterPanel =
+            new CharacterPanel
+            {
+                Dock =
+                    DockStyle.Fill
+            };
+
+        Controls.Add(
+            characterPanel);
     }
 
     public void OpenSave(
         string filename)
     {
         save.Load(filename);
+
+        characterPanel.LoadFromSave(save);
 
         LoadFromSave();
     }
@@ -114,6 +127,9 @@ public class UltimaIVEditorControl
 
     private void StoreToSave()
     {
+        characterPanel
+        .StoreCurrentCharacter();
+
         save.Food =
             (uint)foodNumeric.Value;
 
