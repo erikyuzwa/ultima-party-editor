@@ -12,6 +12,9 @@ public class UltimaIVEditorControl
     private readonly NumericUpDown goldNumeric;
     private readonly NumericUpDown foodNumeric;
 
+    public string? Filename =>
+    save.Filename;
+
     public string GameName =>
         "Ultima IV";
 
