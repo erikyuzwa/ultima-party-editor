@@ -21,18 +21,14 @@ public sealed class QuestItemsPanel
     {
         Dock = DockStyle.Fill;
 
+        Padding = new Padding(20);
+
         var groupBox =
             new GroupBox
             {
                 Text = "Quest Items",
-                Left = 20,
-                Top = 20,
-                Width = 620,
-                Height = 250,
-                Anchor =
-                    AnchorStyles.Top |
-                    AnchorStyles.Left |
-                    AnchorStyles.Right
+                Dock = DockStyle.Top,
+                Height = 250
             };
 
         skullCheck =

@@ -6,23 +6,27 @@ namespace ultima_party_editor
     public partial class MainForm : Form
     {
         private readonly Ultima4EditorControl
-        ultimaIVEditor;
+        ultima4Editor;
 
         public MainForm()
         {
             InitializeComponent();
 
-            ultimaIVEditor =
+            Text = "Ultima Save Editor";
+
+            ClientSize = new Size(800, 680);
+
+            ultima4Editor =
             new Ultima4EditorControl();
 
-            ultimaIVEditor.Dock =
+            ultima4Editor.Dock =
                 DockStyle.Fill;
 
             tabPage4.Controls.Add(
-                ultimaIVEditor);
+                ultima4Editor);
 
             tabPage4.Tag =
-            ultimaIVEditor;
+            ultima4Editor;
         }
 
 

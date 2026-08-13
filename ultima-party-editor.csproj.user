@@ -16,5 +16,8 @@
     <Compile Update="Ultima4\Ultima4EditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Ultima4\VirtueItemsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

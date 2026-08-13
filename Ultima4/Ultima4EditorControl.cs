@@ -14,6 +14,8 @@ public class Ultima4EditorControl
 
     private readonly QuestItemsPanel questItemsPanel;
 
+    private readonly VirtueItemsPanel virtueItemsPanel;
+
     public string? Filename =>
     save.Filename;
 
@@ -42,6 +44,10 @@ public class Ultima4EditorControl
         var questItemsPage =
             new TabPage("Quest Items");
 
+        var virtueItemsPage =
+            new TabPage(
+                "Virtue Items");
+
         characterPanel =
             new CharacterPanel
             {
@@ -60,6 +66,13 @@ public class Ultima4EditorControl
                 Dock = DockStyle.Fill
             };
 
+        virtueItemsPanel =
+            new VirtueItemsPanel
+            {
+                Dock =
+                    DockStyle.Fill
+            };
+
         characterPage.Controls.Add(
             characterPanel);
 
@@ -69,6 +82,9 @@ public class Ultima4EditorControl
         questItemsPage.Controls.Add(
             questItemsPanel);
 
+        virtueItemsPage.Controls.Add(
+            virtueItemsPanel);
+
         tabControl.TabPages.Add(
             characterPage);
 
@@ -77,6 +93,9 @@ public class Ultima4EditorControl
 
         tabControl.TabPages.Add(
             questItemsPage);
+
+        tabControl.TabPages.Add(
+            virtueItemsPage);
 
         Controls.Add(
             tabControl);
@@ -92,6 +111,8 @@ public class Ultima4EditorControl
         inventoryPanel.LoadFromSave(save);
 
         questItemsPanel.LoadFromSave(save);
+
+        virtueItemsPanel.LoadFromSave(save);
 
         LoadFromSave();
     }
@@ -126,6 +147,9 @@ public class Ultima4EditorControl
 
         questItemsPanel
        .StoreToSave();
+
+        virtueItemsPanel
+        .StoreToSave();
 
     }
 }

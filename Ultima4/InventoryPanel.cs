@@ -1,24 +1,25 @@
 
 using UltimaSaveEditor.Common;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace UltimaSaveEditor.Ultima4;
 
 public sealed class InventoryPanel
     : UserControl
 {
-    private readonly NumericUpDown foodNumeric;
-    private readonly NumericUpDown goldNumeric;
+    private NumericUpDown foodNumeric = null!;
+    private NumericUpDown goldNumeric = null!;
 
-    private readonly NumericUpDown torchesNumeric;
-    private readonly NumericUpDown keysNumeric;
-    private readonly NumericUpDown gemsNumeric;
-    private readonly NumericUpDown sextantsNumeric;
+    private NumericUpDown torchesNumeric = null!;
+    private NumericUpDown keysNumeric = null!;
+    private NumericUpDown gemsNumeric = null!;
+    private NumericUpDown sextantsNumeric = null!;
 
-    private readonly ComboBox reagentCombo;
-    private readonly NumericUpDown reagentQuantityNumeric;
+    private ComboBox reagentCombo = null!;
+    private NumericUpDown reagentQuantityNumeric = null!;
 
-    private readonly ComboBox mixtureCombo;
-    private readonly NumericUpDown mixtureQuantityNumeric;
+    private ComboBox mixtureCombo = null!;
+    private NumericUpDown mixtureQuantityNumeric = null!;
 
     private Ultima4SaveFile? save;
 
@@ -29,138 +30,262 @@ public sealed class InventoryPanel
 
     public InventoryPanel()
     {
-        Dock = DockStyle.Fill;
+        Padding = new Padding(20);
 
-        AddLabel("Food:", 20, 25);
-
-        foodNumeric =
-            CreateNumber(
-                140,
-                20,
-                uint.MaxValue);
-
-        AddLabel("Gold:", 20, 65);
-
-        goldNumeric =
-            CreateNumber(
-                140,
-                60,
-                ushort.MaxValue);
-
-        AddLabel("Torches:", 20, 105);
-
-        torchesNumeric =
-            CreateNumber(
-                140,
-                100,
-                ushort.MaxValue);
-
-        AddLabel("Keys:", 20, 145);
-
-        keysNumeric =
-            CreateNumber(
-                140,
-                140,
-                ushort.MaxValue);
-
-        AddLabel("Gems:", 20, 185);
-
-        gemsNumeric =
-            CreateNumber(
-                140,
-                180,
-                ushort.MaxValue);
-
-        AddLabel("Sextants:", 20, 225);
-
-        sextantsNumeric =
-            CreateNumber(
-                140,
-                220,
-                ushort.MaxValue);
-
-        AddLabel("Reagent:", 300, 25);
-
-        reagentCombo =
-        new ComboBox
-        {
-            Left = 400,
-            Top = 20,
-            Width = 100,
-            DropDownStyle =
-                ComboBoxStyle.DropDownList
-        };
-
-        foreach (ReagentType reagent
-                 in Enum.GetValues<ReagentType>())
-        {
-            reagentCombo.Items.Add(
-                reagent.ToDisplayName());
-        }
-
-        AddLabel(
-            "Quantity:",
-            540,
-            25);
-
-        reagentQuantityNumeric =
-            CreateNumber(
-                600,
-                20,
-                ushort.MaxValue);
-
-        AddLabel("Mixture:", 300, 75);
-
-        mixtureCombo =
-            new ComboBox
+        //
+        // Main two-column layout.
+        //
+        var mainLayout =
+            new TableLayoutPanel
             {
-                Left = 400,
-                Top = 70,
-                Width = 100,
-                DropDownStyle =
-                    ComboBoxStyle.DropDownList
+                Dock = DockStyle.Top,
+                Height = 300,
+
+                ColumnCount = 2,
+                RowCount = 1,
+
+                Padding = new Padding(0)
             };
 
-        foreach (SpellMixtureType mixture
-         in Enum.GetValues<SpellMixtureType>())
-        {
-            mixtureCombo.Items.Add(
-                mixture.ToDisplayName());
-        }
+        mainLayout.ColumnStyles.Add(
+            new ColumnStyle(
+                SizeType.Percent,
+                45));
 
-        AddLabel(
-            "Quantity:",
-            540,
-            75);
+        mainLayout.ColumnStyles.Add(
+            new ColumnStyle(
+                SizeType.Percent,
+                55));
 
-        mixtureQuantityNumeric =
-            CreateNumber(
-                600,
-                70,
-                ushort.MaxValue);
-
-        Controls.AddRange(
-            new Control[]
+        //
+        // Utility
+        //
+        var utilityGroup =
+            new GroupBox
             {
-                foodNumeric,
-                goldNumeric,
-                torchesNumeric,
-                keysNumeric,
-                gemsNumeric,
-                sextantsNumeric,
+                Text = "Utility",
+                Dock = DockStyle.Fill,
+                Margin = new Padding(
+                    0,
+                    0,
+                    10,
+                    0)
+            };
 
-                reagentCombo,
-                reagentQuantityNumeric,
+        //
+        // Spell inventory
+        //
+        var spellGroup =
+            new GroupBox
+            {
+                Text = "Spell Mixtures and Reagents",
+                Dock = DockStyle.Fill,
+                Margin = new Padding(
+                    10,
+                    0,
+                    0,
+                    0)
+            };
 
-                mixtureCombo,
-                mixtureQuantityNumeric
-            });
+        BuildUtilityGroup(
+            utilityGroup);
+
+        BuildSpellGroup(
+            spellGroup);
+
+        mainLayout.Controls.Add(
+            utilityGroup,
+            0,
+            0);
+
+        mainLayout.Controls.Add(
+            spellGroup,
+            1,
+            0);
+
+        Controls.Add(
+            mainLayout);
 
         reagentCombo.SelectedIndexChanged +=
             ReagentCombo_SelectedIndexChanged;
 
         mixtureCombo.SelectedIndexChanged +=
             MixtureCombo_SelectedIndexChanged;
+    }
+
+    private void BuildUtilityGroup(
+    GroupBox group)
+    {
+        AddLabel(
+            group,
+            "Food:",
+            25,
+            40);
+
+        foodNumeric =
+            CreateNumber(
+                130,
+                35,
+                uint.MaxValue);
+
+        AddLabel(
+            group,
+            "Gold:",
+            25,
+            75);
+
+        goldNumeric =
+            CreateNumber(
+                130,
+                70,
+                ushort.MaxValue);
+
+        AddLabel(
+            group,
+            "Torches:",
+            25,
+            110);
+
+        torchesNumeric =
+            CreateNumber(
+                130,
+                105,
+                ushort.MaxValue);
+
+        AddLabel(
+            group,
+            "Keys:",
+            25,
+            145);
+
+        keysNumeric =
+            CreateNumber(
+                130,
+                140,
+                ushort.MaxValue);
+
+        AddLabel(
+            group,
+            "Gems:",
+            25,
+            180);
+
+        gemsNumeric =
+            CreateNumber(
+                130,
+                175,
+                ushort.MaxValue);
+
+        AddLabel(
+            group,
+            "Sextants:",
+            25,
+            215);
+
+        sextantsNumeric =
+            CreateNumber(
+                130,
+                210,
+                ushort.MaxValue);
+
+        group.Controls.AddRange(
+            new Control[]
+            {
+            foodNumeric,
+            goldNumeric,
+            torchesNumeric,
+            keysNumeric,
+            gemsNumeric,
+            sextantsNumeric
+            });
+    }
+
+    private void BuildSpellGroup(
+    GroupBox group)
+    {
+        AddLabel(
+            group,
+            "Reagent:",
+            25,
+            40);
+
+        reagentCombo =
+            new ComboBox
+            {
+                Left = 120,
+                Top = 35,
+                Width = 190,
+
+                DropDownStyle =
+                    ComboBoxStyle.DropDownList
+            };
+
+        foreach (ReagentType reagent
+                 in Enum.GetValues<ReagentType>())
+        {
+            reagentCombo.Items.Add(
+                ((Enum)(object)reagent)
+                    .ToDisplayName());
+        }
+
+        AddLabel(
+            group,
+            "Quantity:",
+            25,
+            80);
+
+        reagentQuantityNumeric =
+            CreateNumber(
+                120,
+                75,
+                ushort.MaxValue);
+
+        AddLabel(
+            group,
+            "Mixture:",
+            25,
+            140);
+
+        mixtureCombo =
+            new ComboBox
+            {
+                Left = 120,
+                Top = 135,
+                Width = 190,
+
+                DropDownStyle =
+                    ComboBoxStyle.DropDownList
+            };
+
+        foreach (SpellMixtureType mixture
+                 in Enum.GetValues<SpellMixtureType>())
+        {
+            mixtureCombo.Items.Add(
+                ((Enum)(object)mixture)
+                    .ToDisplayName());
+        }
+
+        AddLabel(
+            group,
+            "Quantity:",
+            25,
+            180);
+
+        mixtureQuantityNumeric =
+            CreateNumber(
+                120,
+                175,
+                ushort.MaxValue);
+
+        group.Controls.AddRange(
+            new Control[]
+            {
+            reagentCombo,
+            reagentQuantityNumeric,
+
+            mixtureCombo,
+            mixtureQuantityNumeric
+            });
     }
 
     private NumericUpDown CreateNumber(
@@ -180,18 +305,19 @@ public sealed class InventoryPanel
     }
 
     private void AddLabel(
+        Control parent,
         string text,
         int x,
         int y)
     {
-        Controls.Add(
-            new Label
-            {
-                Text = text,
-                Left = x,
-                Top = y,
-                AutoSize = true
-            });
+        parent.Controls.Add(
+                new Label
+                {
+                    Text = text,
+                    Left = x,
+                    Top = y,
+                    AutoSize = true
+                });
     }
 
     public void LoadFromSave(

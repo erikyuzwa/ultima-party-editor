@@ -39,6 +39,11 @@ public sealed class Ultima4SaveFile
     private const byte HornBit = 1 << 0;
     private const byte WheelBit = 1 << 1;
 
+    private const int KarmaOffset = 0x146;
+
+    private const int StonesOffset = 0x1D6;
+    private const int RunesOffset = 0x1D7;
+
     public const int CharacterCount = 8;
 
 
@@ -264,6 +269,96 @@ public sealed class Ultima4SaveFile
                     owned);
                 break;
         }
+    }
+
+    public bool HasStone(
+    StoneType stone)
+    {
+        int bit =
+            (int)stone;
+
+        byte mask =
+            (byte)(1 << bit);
+
+        return (bytes[StonesOffset] & mask) != 0;
+    }
+
+    public void SetStone(
+        StoneType stone,
+        bool owned)
+    {
+        int bit =
+            (int)stone;
+
+        byte mask =
+            (byte)(1 << bit);
+
+        if (owned)
+        {
+            bytes[StonesOffset] |= mask;
+        }
+        else
+        {
+            bytes[StonesOffset] &=
+                (byte)~mask;
+        }
+    }
+
+    public bool HasRune(
+        VirtueType virtue)
+    {
+        int bit =
+            (int)virtue;
+
+        byte mask =
+            (byte)(1 << bit);
+
+        return (bytes[RunesOffset] & mask) != 0;
+    }
+
+    public void SetRune(
+        VirtueType virtue,
+        bool owned)
+    {
+        int bit =
+            (int)virtue;
+
+        byte mask =
+            (byte)(1 << bit);
+
+        if (owned)
+        {
+            bytes[RunesOffset] |= mask;
+        }
+        else
+        {
+            bytes[RunesOffset] &=
+                (byte)~mask;
+        }
+    }
+
+    public ushort GetVirtueValue(
+    VirtueType virtue)
+    {
+        int index =
+            (int)virtue;
+
+        return ReadUInt16(
+            KarmaOffset +
+            index * 2);
+    }
+
+    public void SetVirtueValue(
+        VirtueType virtue,
+        ushort value)
+    {
+        int index =
+            (int)virtue;
+
+        WriteUInt16(
+            KarmaOffset +
+            index * 2,
+            value);
     }
 
     public void Load(
