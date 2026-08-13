@@ -3,6 +3,7 @@ using UltimaSaveEditor.Ultima1;
 using UltimaSaveEditor.Ultima2;
 using UltimaSaveEditor.Ultima3;
 using UltimaSaveEditor.Ultima4;
+using UltimaSaveEditor.Ultima5;
 
 namespace ultima_party_editor
 {
@@ -12,6 +13,8 @@ namespace ultima_party_editor
         private readonly Ultima2EditorControl ultima2Editor;
         private readonly Ultima3EditorControl ultima3Editor;
         private readonly Ultima4EditorControl ultima4Editor;
+
+        private readonly Ultima5EditorControl ultima5Editor;
 
         public MainForm()
         {
@@ -25,6 +28,7 @@ namespace ultima_party_editor
             ultima2Editor = new Ultima2EditorControl();
             ultima3Editor = new Ultima3EditorControl();
             ultima4Editor = new Ultima4EditorControl();
+            ultima5Editor = new Ultima5EditorControl();
 
             ultima1Editor.Dock = DockStyle.Fill;
             tabPage1.Controls.Add(ultima1Editor);
@@ -41,6 +45,10 @@ namespace ultima_party_editor
             ultima4Editor.Dock = DockStyle.Fill;
             tabPage4.Controls.Add(ultima4Editor);
             tabPage4.Tag = ultima4Editor;
+
+            ultima5Editor.Dock = DockStyle.Fill;
+            tabPage5.Controls.Add(ultima5Editor);
+            tabPage5.Tag = ultima5Editor;
         }
 
 
