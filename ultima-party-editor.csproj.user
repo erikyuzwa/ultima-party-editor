@@ -4,10 +4,19 @@
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Ultima3\CharacterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Ultima3\EquipmentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Ultima3\Ultima3EditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Ultima4\CharacterPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Ultima4\InventoryPanel.cs">
+    <Compile Update="Ultima4\EquipmentPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Ultima4\QuestItemsPanel.cs">

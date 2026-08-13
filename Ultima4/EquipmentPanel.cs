@@ -4,7 +4,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace UltimaSaveEditor.Ultima4;
 
-public sealed class InventoryPanel
+public sealed class EquipmentPanel
     : UserControl
 {
     private NumericUpDown foodNumeric = null!;
@@ -28,7 +28,7 @@ public sealed class InventoryPanel
 
     private bool loadingControls;
 
-    public InventoryPanel()
+    public EquipmentPanel()
     {
         Padding = new Padding(20);
 

@@ -10,7 +10,7 @@ public class Ultima4EditorControl
 
     private readonly CharacterPanel characterPanel;
 
-    private readonly InventoryPanel inventoryPanel;
+    private readonly EquipmentPanel inventoryPanel;
 
     private readonly QuestItemsPanel questItemsPanel;
 
@@ -39,7 +39,7 @@ public class Ultima4EditorControl
             new TabPage("Party");
 
         var inventoryPage =
-            new TabPage("Party Equipment");
+            new TabPage("Equipment");
 
         var questItemsPage =
             new TabPage("Quest Items");
@@ -55,7 +55,7 @@ public class Ultima4EditorControl
             };
 
         inventoryPanel =
-            new InventoryPanel
+            new EquipmentPanel
             {
                 Dock = DockStyle.Fill
             };
