@@ -307,7 +307,7 @@ public sealed class EquipmentPanel
                 y,
                 9999);
 
-        y += 45;
+        y += 30;
 
         AddLabel(
             group,
@@ -333,7 +333,7 @@ public sealed class EquipmentPanel
                 y,
                 99);
 
-        y += 45;
+        y += 30;
 
         AddLabel(
             group,

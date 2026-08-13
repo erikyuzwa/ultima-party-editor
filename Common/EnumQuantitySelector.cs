@@ -66,14 +66,14 @@ public sealed class EnumQuantitySelector<T>
                 Text = itemLabel + ":",
                 Left = 10,
                 Top = 10,
-                Width = 65
+                Width = 55
             };
 
         combo =
             new ComboBox
             {
                 Left = 65,
-                Top = 10,
+                Top = 9,
                 Width = 140,
 
                 DropDownStyle =
@@ -92,7 +92,7 @@ public sealed class EnumQuantitySelector<T>
             new Label
             {
                 Text = "Qty:",
-                Left = 250,
+                Left = 230,
                 Top = 10,
                 Width = 35
             };
@@ -100,8 +100,8 @@ public sealed class EnumQuantitySelector<T>
         quantityNumeric =
             new NumericUpDown
             {
-                Left = 280,
-                Top = 13,
+                Left = 260,
+                Top = 9,
 
                 Width = 55,
 
