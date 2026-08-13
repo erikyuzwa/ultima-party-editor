@@ -24,6 +24,8 @@ public sealed class CharacterPanel
     private readonly ComboBox classCombo;
     private readonly ComboBox statusCombo;
 
+    private readonly PictureBox boxArtImage;
+
     private Ultima4SaveFile? save;
     private int currentIndex = -1;
 
@@ -31,6 +33,46 @@ public sealed class CharacterPanel
     {
         Dock =
             DockStyle.Fill;
+
+
+        var imagePanel =
+            new Panel
+            {
+                Dock =
+                    DockStyle.Right,
+
+                Width = 340,
+
+                Padding =
+                    new Padding(20)
+            };
+
+        boxArtImage =
+            new PictureBox
+            {
+                Image =
+                    ultima_party_editor.Properties.Resources.Ultima4BoxArt,
+
+                SizeMode =
+                    PictureBoxSizeMode.Zoom,
+
+                Width = 300,
+                Height = 400,
+
+                Top = 20,
+                Left = 20,
+
+                Anchor =
+                    AnchorStyles.Top |
+                    AnchorStyles.Left |
+                    AnchorStyles.Right
+            };
+
+        imagePanel.Controls.Add(
+            boxArtImage);
+
+        Controls.Add(
+            imagePanel);
 
         characterCombo =
             new ComboBox
@@ -187,6 +229,8 @@ public sealed class CharacterPanel
 
         characterCombo.SelectedIndexChanged +=
             CharacterCombo_SelectedIndexChanged;
+
+        
     }
 
     private NumericUpDown CreateNumber(
