@@ -79,14 +79,14 @@ public sealed class InventoryPanel
                 220,
                 ushort.MaxValue);
 
-        AddLabel("Reagent:", 320, 25);
+        AddLabel("Reagent:", 300, 25);
 
         reagentCombo =
         new ComboBox
         {
-            Left = 420,
+            Left = 400,
             Top = 20,
-            Width = 180,
+            Width = 100,
             DropDownStyle =
                 ComboBoxStyle.DropDownList
         };
@@ -100,23 +100,23 @@ public sealed class InventoryPanel
 
         AddLabel(
             "Quantity:",
-            620,
+            540,
             25);
 
         reagentQuantityNumeric =
             CreateNumber(
-                700,
+                600,
                 20,
                 ushort.MaxValue);
 
-        AddLabel("Mixture:", 320, 75);
+        AddLabel("Mixture:", 300, 75);
 
         mixtureCombo =
             new ComboBox
             {
-                Left = 420,
+                Left = 400,
                 Top = 70,
-                Width = 180,
+                Width = 100,
                 DropDownStyle =
                     ComboBoxStyle.DropDownList
             };
@@ -130,12 +130,12 @@ public sealed class InventoryPanel
 
         AddLabel(
             "Quantity:",
-            620,
+            540,
             75);
 
         mixtureQuantityNumeric =
             CreateNumber(
-                700,
+                600,
                 70,
                 ushort.MaxValue);
 
@@ -172,7 +172,7 @@ public sealed class InventoryPanel
         {
             Left = x,
             Top = y,
-            Width = 120,
+            Width = 80,
             Minimum = 0,
             Maximum = maximum,
             ThousandsSeparator = true

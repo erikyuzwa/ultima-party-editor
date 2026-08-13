@@ -10,6 +10,9 @@
     <Compile Update="Ultima4\InventoryPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Ultima4\QuestItemsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Ultima4\Ultima4EditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -23,7 +23,25 @@ public sealed class Ultima4SaveFile
 
     private const int CharacterRecordSize = 39;
 
+    private const int QuestItems1Offset = 0x1D2;
+    private const int QuestItems2Offset = 0x1D3;
+
+    private const byte SkullBit = 1 << 0;
+
+    private const byte CandleBit = 1 << 2;
+    private const byte BookBit = 1 << 3;
+    private const byte BellBit = 1 << 4;
+
+    private const byte KeyCourageBit = 1 << 5;
+    private const byte KeyLoveBit = 1 << 6;
+    private const byte KeyTruthBit = 1 << 7;
+
+    private const byte HornBit = 1 << 0;
+    private const byte WheelBit = 1 << 1;
+
     public const int CharacterCount = 8;
+
+
 
     private byte[] bytes = Array.Empty<byte>();
 
@@ -121,6 +139,131 @@ public sealed class Ultima4SaveFile
             MixtureOffset +
             ((int)spell * 2),
             quantity);
+    }
+
+    public bool HasQuestItem(
+    QuestItem item)
+    {
+        return item switch
+        {
+            QuestItem.MondainsSkull =>
+                GetFlag(
+                    QuestItems1Offset,
+                    SkullBit),
+
+            QuestItem.SilverHorn =>
+                GetFlag(
+                    QuestItems2Offset,
+                    HornBit),
+
+            QuestItem.Wheel =>
+                GetFlag(
+                    QuestItems2Offset,
+                    WheelBit),
+
+            QuestItem.CandleOfLove =>
+                GetFlag(
+                    QuestItems1Offset,
+                    CandleBit),
+
+            QuestItem.BookOfTruth =>
+                GetFlag(
+                    QuestItems1Offset,
+                    BookBit),
+
+            QuestItem.BellOfCourage =>
+                GetFlag(
+                    QuestItems1Offset,
+                    BellBit),
+
+            QuestItem.KeyOfLove =>
+                GetFlag(
+                    QuestItems1Offset,
+                    KeyLoveBit),
+
+            QuestItem.KeyOfTruth =>
+                GetFlag(
+                    QuestItems1Offset,
+                    KeyTruthBit),
+
+            QuestItem.KeyOfCourage =>
+                GetFlag(
+                    QuestItems1Offset,
+                    KeyCourageBit),
+
+            _ => false
+        };
+    }
+
+    public void SetQuestItem(
+        QuestItem item,
+        bool owned)
+    {
+        switch (item)
+        {
+            case QuestItem.MondainsSkull:
+                SetFlag(
+                    QuestItems1Offset,
+                    SkullBit,
+                    owned);
+                break;
+
+            case QuestItem.SilverHorn:
+                SetFlag(
+                    QuestItems2Offset,
+                    HornBit,
+                    owned);
+                break;
+
+            case QuestItem.Wheel:
+                SetFlag(
+                    QuestItems2Offset,
+                    WheelBit,
+                    owned);
+                break;
+
+            case QuestItem.CandleOfLove:
+                SetFlag(
+                    QuestItems1Offset,
+                    CandleBit,
+                    owned);
+                break;
+
+            case QuestItem.BookOfTruth:
+                SetFlag(
+                    QuestItems1Offset,
+                    BookBit,
+                    owned);
+                break;
+
+            case QuestItem.BellOfCourage:
+                SetFlag(
+                    QuestItems1Offset,
+                    BellBit,
+                    owned);
+                break;
+
+            case QuestItem.KeyOfLove:
+                SetFlag(
+                    QuestItems1Offset,
+                    KeyLoveBit,
+                    owned);
+                break;
+
+            case QuestItem.KeyOfTruth:
+                SetFlag(
+                    QuestItems1Offset,
+                    KeyTruthBit,
+                    owned);
+                break;
+
+            case QuestItem.KeyOfCourage:
+                SetFlag(
+                    QuestItems1Offset,
+                    KeyCourageBit,
+                    owned);
+                break;
+        }
     }
 
     public void Load(
@@ -305,6 +448,29 @@ public sealed class Ultima4SaveFile
             bytes,
             offset,
             count);
+    }
+
+    private bool GetFlag(
+    int offset,
+    byte mask)
+    {
+        return (bytes[offset] & mask) != 0;
+    }
+
+    private void SetFlag(
+        int offset,
+        byte mask,
+        bool enabled)
+    {
+        if (enabled)
+        {
+            bytes[offset] |= mask;
+        }
+        else
+        {
+            bytes[offset] &=
+                (byte)~mask;
+        }
     }
 
     public PartyCharacter GetCharacter(

@@ -12,6 +12,8 @@ public class Ultima4EditorControl
 
     private readonly InventoryPanel inventoryPanel;
 
+    private readonly QuestItemsPanel questItemsPanel;
+
     public string? Filename =>
     save.Filename;
 
@@ -37,6 +39,9 @@ public class Ultima4EditorControl
         var inventoryPage =
             new TabPage("Party Equipment");
 
+        var questItemsPage =
+            new TabPage("Quest Items");
+
         characterPanel =
             new CharacterPanel
             {
@@ -49,17 +54,29 @@ public class Ultima4EditorControl
                 Dock = DockStyle.Fill
             };
 
+        questItemsPanel =
+            new QuestItemsPanel
+            {
+                Dock = DockStyle.Fill
+            };
+
         characterPage.Controls.Add(
             characterPanel);
 
         inventoryPage.Controls.Add(
             inventoryPanel);
 
+        questItemsPage.Controls.Add(
+            questItemsPanel);
+
         tabControl.TabPages.Add(
             characterPage);
 
         tabControl.TabPages.Add(
             inventoryPage);
+
+        tabControl.TabPages.Add(
+            questItemsPage);
 
         Controls.Add(
             tabControl);
@@ -73,6 +90,8 @@ public class Ultima4EditorControl
         characterPanel.LoadFromSave(save);
 
         inventoryPanel.LoadFromSave(save);
+
+        questItemsPanel.LoadFromSave(save);
 
         LoadFromSave();
     }
@@ -104,6 +123,9 @@ public class Ultima4EditorControl
 
         inventoryPanel
         .StoreToSave();
+
+        questItemsPanel
+       .StoreToSave();
 
     }
 }
