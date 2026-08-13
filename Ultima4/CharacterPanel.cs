@@ -1,3 +1,5 @@
+using UltimaSaveEditor.Common;
+
 namespace UltimaSaveEditor.Ultima4;
 
 public sealed class CharacterPanel
@@ -22,7 +24,7 @@ public sealed class CharacterPanel
     private readonly ComboBox classCombo;
     private readonly ComboBox statusCombo;
 
-    private UltimaIVSaveFile? save;
+    private Ultima4SaveFile? save;
     private int currentIndex = -1;
 
     public CharacterPanel()
@@ -202,9 +204,9 @@ public sealed class CharacterPanel
     }
 
     private ComboBox CreateEnumCombo<T>(
-        int x,
-        int y)
-        where T : struct, Enum
+    int x,
+    int y)
+    where T : struct, Enum
     {
         ComboBox combo =
             new()
@@ -213,10 +215,16 @@ public sealed class CharacterPanel
                 Top = y,
                 Width = 160,
                 DropDownStyle =
-                    ComboBoxStyle.DropDownList,
-                DataSource =
-                    Enum.GetValues<T>()
+                    ComboBoxStyle.DropDownList
             };
+
+        foreach (T value
+                 in Enum.GetValues<T>())
+        {
+            combo.Items.Add(
+                ((Enum)(object)value)
+                    .ToDisplayName());
+        }
 
         return combo;
     }
@@ -237,7 +245,7 @@ public sealed class CharacterPanel
     }
 
     public void LoadFromSave(
-        UltimaIVSaveFile saveFile)
+        Ultima4SaveFile saveFile)
     {
         save =
             saveFile;
@@ -245,7 +253,7 @@ public sealed class CharacterPanel
         characterCombo.Items.Clear();
 
         for (int i = 0;
-             i < UltimaIVSaveFile.CharacterCount;
+             i < Ultima4SaveFile.CharacterCount;
              i++)
         {
             PartyCharacter character =
@@ -326,11 +334,11 @@ public sealed class CharacterPanel
         magicPointsNumeric.Value =
             character.MagicPoints;
 
-        weaponCombo.SelectedItem =
-            character.Weapon;
+        weaponCombo.SelectedIndex =
+            (int)character.Weapon;
 
-        armorCombo.SelectedItem =
-            character.Armor;
+        armorCombo.SelectedIndex =
+            (int)character.Armor;
 
         sexCombo.SelectedIndex =
             character.Sex == 0x0C
@@ -389,18 +397,18 @@ public sealed class CharacterPanel
         character.MagicPoints =
             (ushort)magicPointsNumeric.Value;
 
-        if (weaponCombo.SelectedItem
-            is WeaponType weapon)
+        if (weaponCombo.SelectedIndex >= 0)
         {
             character.Weapon =
-                weapon;
+                (WeaponType)
+                    weaponCombo.SelectedIndex;
         }
 
-        if (armorCombo.SelectedItem
-            is ArmorType armor)
+        if (armorCombo.SelectedIndex >= 0)
         {
             character.Armor =
-                armor;
+                (ArmorType)
+                    armorCombo.SelectedIndex;
         }
 
         character.Sex =

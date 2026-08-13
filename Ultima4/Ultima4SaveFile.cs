@@ -3,34 +3,34 @@ using UltimaSaveEditor.Common;
 
 namespace UltimaSaveEditor.Ultima4;
 
-public sealed class UltimaIVSaveFile
+public sealed class Ultima4SaveFile
     : ISaveFile
 {
-    public const int FileSize =
-        0x1F6;
+    public const int FileSize = 0x1F6;
 
-    private const int FoodOffset =
-    0x140;
+    private const int FoodOffset = 0x140;
+    private const int GoldOffset = 0x144;
 
-    private const int GoldOffset =
-        0x144;
+    private const int TorchesOffset = 0x156;
+    private const int GemsOffset = 0x158;
+    private const int KeysOffset = 0x15A;
+    private const int SextantsOffset = 0x15C;
 
-    private const int CharacterBaseOffset =
-    0x08;
+    private const int ReagentOffset = 0x18E;
+    private const int MixtureOffset = 0x19E;
 
-    private const int CharacterRecordSize =
-        39;
+    private const int CharacterBaseOffset = 0x08;
 
-    public const int CharacterCount =
-        8;
+    private const int CharacterRecordSize = 39;
 
-    private byte[] bytes =
-        Array.Empty<byte>();
+    public const int CharacterCount = 8;
+
+    private byte[] bytes = Array.Empty<byte>();
 
     private readonly PartyCharacter[] characters =
     new PartyCharacter[CharacterCount];
 
-    public UltimaIVSaveFile()
+    public Ultima4SaveFile()
     {
         for (int i = 0;
          i < CharacterCount;
@@ -53,26 +53,74 @@ public sealed class UltimaIVSaveFile
 
     public uint Food
     {
-        get =>
-            ReadUInt32(
-                FoodOffset);
-
-        set =>
-            WriteUInt32(
-                FoodOffset,
-                value);
+        get => ReadUInt32(FoodOffset);
+        set => WriteUInt32(FoodOffset, value);
     }
 
     public ushort Gold
     {
-        get =>
-            ReadUInt16(
-                GoldOffset);
+        get => ReadUInt16(GoldOffset);
+        set => WriteUInt16(GoldOffset, value);
+    }
 
-        set =>
-            WriteUInt16(
-                GoldOffset,
-                value);
+    public ushort Torches
+    {
+        get => ReadUInt16(TorchesOffset);
+        set => WriteUInt16(TorchesOffset, value);
+    }
+
+    public ushort Gems
+    {
+        get => ReadUInt16(GemsOffset);
+        set => WriteUInt16(GemsOffset, value);
+    }
+
+    public ushort Keys
+    {
+        get => ReadUInt16(KeysOffset);
+        set => WriteUInt16(KeysOffset, value);
+    }
+
+    public ushort Sextants
+    {
+        get => ReadUInt16(SextantsOffset);
+        set => WriteUInt16(SextantsOffset, value);
+    }
+
+    public ushort GetReagentQuantity(
+        ReagentType reagent)
+    {
+        return ReadUInt16(
+            ReagentOffset +
+            ((int)reagent * 2));
+    }
+
+    public void SetReagentQuantity(
+        ReagentType reagent,
+        ushort quantity)
+    {
+        WriteUInt16(
+            ReagentOffset +
+            ((int)reagent * 2),
+            quantity);
+    }
+
+    public ushort GetSpellMixtureQuantity(
+        SpellMixtureType spell)
+    {
+        return ReadUInt16(
+            MixtureOffset +
+            ((int)spell * 2));
+    }
+
+    public void SetSpellMixtureQuantity(
+        SpellMixtureType spell,
+        ushort quantity)
+    {
+        WriteUInt16(
+            MixtureOffset +
+            ((int)spell * 2),
+            quantity);
     }
 
     public void Load(

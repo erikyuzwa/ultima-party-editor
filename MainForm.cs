@@ -5,7 +5,7 @@ namespace ultima_party_editor
 {
     public partial class MainForm : Form
     {
-        private readonly UltimaIVEditorControl
+        private readonly Ultima4EditorControl
         ultimaIVEditor;
 
         public MainForm()
@@ -13,7 +13,7 @@ namespace ultima_party_editor
             InitializeComponent();
 
             ultimaIVEditor =
-            new UltimaIVEditorControl();
+            new Ultima4EditorControl();
 
             ultimaIVEditor.Dock =
                 DockStyle.Fill;
