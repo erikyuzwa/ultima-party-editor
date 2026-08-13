@@ -49,6 +49,66 @@ public sealed class Ultima5SaveFile
     private const int ReagentOffset =
         0x02AA;
 
+    private const int GrappleOffset =
+    0x0209;
+
+    private const int MagicCarpetOffset =
+        0x020A;
+
+    private const int LordBritishAmuletOffset =
+    0x020D;
+
+    private const int CrownOffset =
+        0x020E;
+
+    private const int SceptreOffset =
+        0x020F;
+
+    private const int ShardFalsehoodOffset =
+        0x0210;
+
+    private const int ShardHatredOffset =
+        0x0211;
+
+    private const int ShardCowardiceOffset =
+        0x0212;
+
+    private const int SpyGlassOffset =
+        0x0214;
+
+    private const int HmsCapePlansOffset =
+        0x0215;
+
+    private const int SextantOffset =
+        0x0216;
+
+    private const int PocketWatchOffset =
+        0x0217;
+
+    private const int BlackBadgeOffset =
+        0x0218;
+
+    private const int SandalwoodBoxOffset =
+        0x0219;
+
+    private const int FoodOffset =
+    0x0202;
+
+    private const int GoldOffset =
+        0x0204;
+
+    private const int KeysOffset =
+        0x0206;
+
+    private const int GemsOffset =
+        0x0207;
+
+    private const int TorchesOffset =
+        0x0208;
+
+    private const int SkullKeysOffset =
+        0x020B;
+
     private byte[] bytes =
         Array.Empty<byte>();
 
@@ -63,6 +123,285 @@ public sealed class Ultima5SaveFile
 
     public bool IsLoaded =>
         bytes.Length == FileSize;
+
+    public ushort Food
+    {
+        get =>
+            ReadUInt16(
+                FoodOffset);
+
+        set =>
+            WriteUInt16(
+                FoodOffset,
+                value);
+    }
+
+    public ushort Gold
+    {
+        get =>
+            ReadUInt16(
+                GoldOffset);
+
+        set =>
+            WriteUInt16(
+                GoldOffset,
+                value);
+    }
+
+    public byte Keys
+    {
+        get =>
+            bytes[KeysOffset];
+
+        set =>
+            bytes[KeysOffset] =
+                (byte)Math.Min(
+                    value,
+                    (byte)99);
+    }
+
+    public byte Gems
+    {
+        get =>
+            bytes[GemsOffset];
+
+        set =>
+            bytes[GemsOffset] =
+                (byte)Math.Min(
+                    value,
+                    (byte)99);
+    }
+
+    public byte Torches
+    {
+        get =>
+            bytes[TorchesOffset];
+
+        set =>
+            bytes[TorchesOffset] =
+                (byte)Math.Min(
+                    value,
+                    (byte)99);
+    }
+
+    public byte SkullKeys
+    {
+        get =>
+            bytes[SkullKeysOffset];
+
+        set =>
+            bytes[SkullKeysOffset] =
+                (byte)Math.Min(
+                    value,
+                    (byte)99);
+    }
+
+    public bool HasQuestItem(
+    QuestItemType item)
+    {
+        if (!IsLoaded)
+            return false;
+
+        return item switch
+        {
+            QuestItemType.Grapple =>
+                ReadQuestFlag(
+                    GrappleOffset),
+
+            QuestItemType.Amulet =>
+    ReadQuestFlag(
+        LordBritishAmuletOffset),
+
+            QuestItemType.Crown =>
+                ReadQuestFlag(
+                    CrownOffset),
+
+            QuestItemType.MagicCarpet =>
+                ReadQuantityFlag(
+                    MagicCarpetOffset),
+
+            QuestItemType.PocketWatch =>
+                ReadQuestFlag(
+                    PocketWatchOffset),
+
+            QuestItemType.Sceptre =>
+                ReadQuestFlag(
+                    SceptreOffset),
+
+            QuestItemType.ShardOfHatred =>
+                ReadQuestFlag(
+                    ShardHatredOffset),
+
+            QuestItemType.ShardOfCowardice =>
+                ReadQuestFlag(
+                    ShardCowardiceOffset),
+
+            QuestItemType.ShardOfFalsehood =>
+                ReadQuestFlag(
+                    ShardFalsehoodOffset),
+
+            QuestItemType.HmsCapePlans =>
+                ReadQuestFlag(
+                    HmsCapePlansOffset),
+
+            QuestItemType.Sextant =>
+                ReadQuantityFlag(
+                    SextantOffset),
+
+            QuestItemType.SpyGlass =>
+                ReadQuantityFlag(
+                    SpyGlassOffset),
+
+            QuestItemType.BlackBadge =>
+                ReadQuestFlag(
+                    BlackBadgeOffset),
+
+            QuestItemType.SandalwoodBox =>
+                ReadQuestFlag(
+                    SandalwoodBoxOffset),
+
+            _ => false
+        };
+    }
+
+    public void SetQuestItem(
+    QuestItemType item,
+    bool owned)
+    {
+        if (!IsLoaded)
+            return;
+
+        switch (item)
+        {
+            case QuestItemType.Grapple:
+                WriteQuestFlag(
+                    GrappleOffset,
+                    owned);
+                break;
+
+            case QuestItemType.Amulet:
+                WriteQuestFlag(
+                    LordBritishAmuletOffset,
+                    owned);
+                break;
+
+            case QuestItemType.Crown:
+                WriteQuestFlag(
+                    CrownOffset,
+                    owned);
+                break;
+
+            case QuestItemType.MagicCarpet:
+                WriteQuantityFlag(
+                    MagicCarpetOffset,
+                    owned);
+                break;
+
+            case QuestItemType.PocketWatch:
+                WriteQuestFlag(
+                    PocketWatchOffset,
+                    owned);
+                break;
+
+            case QuestItemType.Sceptre:
+                WriteQuestFlag(
+                    SceptreOffset,
+                    owned);
+                break;
+
+            case QuestItemType.ShardOfHatred:
+                WriteQuestFlag(
+                    ShardHatredOffset,
+                    owned);
+                break;
+
+            case QuestItemType.ShardOfCowardice:
+                WriteQuestFlag(
+                    ShardCowardiceOffset,
+                    owned);
+                break;
+
+            case QuestItemType.ShardOfFalsehood:
+                WriteQuestFlag(
+                    ShardFalsehoodOffset,
+                    owned);
+                break;
+
+            case QuestItemType.HmsCapePlans:
+                WriteQuestFlag(
+                    HmsCapePlansOffset,
+                    owned);
+                break;
+
+            case QuestItemType.Sextant:
+                WriteQuantityFlag(
+                    SextantOffset,
+                    owned);
+                break;
+
+            case QuestItemType.SpyGlass:
+                WriteQuantityFlag(
+                    SpyGlassOffset,
+                    owned);
+                break;
+
+            case QuestItemType.BlackBadge:
+                WriteQuestFlag(
+                    BlackBadgeOffset,
+                    owned);
+                break;
+
+            case QuestItemType.SandalwoodBox:
+                WriteQuestFlag(
+                    SandalwoodBoxOffset,
+                    owned);
+                break;
+        }
+    }
+
+    private bool ReadQuantityFlag(
+    int offset)
+    {
+        return bytes[offset] > 0;
+    }
+
+    private void WriteQuantityFlag(
+        int offset,
+        bool owned)
+    {
+        if (!owned)
+        {
+            bytes[offset] = 0;
+        }
+        else if (bytes[offset] == 0)
+        {
+            //
+            // User checked an item that wasn't present.
+            // Give them one.
+            //
+            bytes[offset] = 1;
+        }
+
+        //
+        // If it was already > 0, preserve the quantity.
+        //
+    }
+
+    private bool ReadQuestFlag(
+    int offset)
+    {
+        return bytes[offset] != 0;
+    }
+
+    private void WriteQuestFlag(
+        int offset,
+        bool owned)
+    {
+        bytes[offset] =
+            owned
+                ? (byte)0xFF
+                : (byte)0x00;
+    }
 
     private byte ReadQuantity(
     int baseOffset,

@@ -58,23 +58,24 @@ public sealed class EnumQuantitySelector<T>
     public EnumQuantitySelector(
         string itemLabel)
     {
-        Height = 90;
+        Height = 50;
 
         var itemText =
             new Label
             {
-                Text = itemLabel,
-                Left = 15,
-                Top = 20,
-                Width = 80
+                Text = itemLabel + ":",
+                Left = 10,
+                Top = 10,
+                Width = 65
             };
 
         combo =
             new ComboBox
             {
-                Left = 100,
-                Top = 15,
-                Width = 205,
+                Left = 65,
+                Top = 10,
+                Width = 140,
+
                 DropDownStyle =
                     ComboBoxStyle.DropDownList
             };
@@ -90,20 +91,25 @@ public sealed class EnumQuantitySelector<T>
         var quantityLabel =
             new Label
             {
-                Text = "Quantity:",
-                Left = 15,
-                Top = 57,
-                Width = 80
+                Text = "Qty:",
+                Left = 250,
+                Top = 10,
+                Width = 35
             };
 
         quantityNumeric =
             new NumericUpDown
             {
-                Left = 100,
-                Top = 52,
-                Width = 100,
+                Left = 280,
+                Top = 13,
+
+                Width = 55,
+
                 Minimum = 0,
-                Maximum = 99
+                Maximum = 99,
+
+                TextAlign =
+                    HorizontalAlignment.Right
             };
 
         Controls.AddRange(

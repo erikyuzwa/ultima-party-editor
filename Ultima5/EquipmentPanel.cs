@@ -48,6 +48,15 @@ public sealed class EquipmentPanel
     private RingType currentRing;
     private AmuletType currentAmulet;
 
+    private NumericUpDown foodNumeric = null!;
+    private NumericUpDown goldNumeric = null!;
+
+    private NumericUpDown torchesNumeric = null!;
+    private NumericUpDown keysNumeric = null!;
+
+    private NumericUpDown skullKeysNumeric = null!;
+    private NumericUpDown gemsNumeric = null!;
+
     private Ultima5SaveFile? save;
 
     private bool loading;
@@ -58,7 +67,7 @@ public sealed class EquipmentPanel
             DockStyle.Fill;
 
         Padding =
-            new Padding(20);
+            new Padding(10);
 
         spellSelector =
             new EnumQuantitySelector<SpellType>(
@@ -108,30 +117,54 @@ public sealed class EquipmentPanel
     private void BuildLayout()
     {
         var layout =
-            new TableLayoutPanel
-            {
-                Dock =
-                    DockStyle.Top,
+        new TableLayoutPanel
+        {
+            Dock =
+                DockStyle.Top,
 
-                AutoSize =
-                    true,
+            AutoSize =
+                true,
 
-                ColumnCount =
-                    2,
+            ColumnCount =
+                2,
 
-                RowCount =
-                    5
-            };
+            RowCount =
+                6,
+
+            GrowStyle =
+                TableLayoutPanelGrowStyle.FixedSize
+        };
+
+        layout.ColumnStyles.Add(
+            new ColumnStyle(
+                SizeType.Percent,
+                50));
 
         layout.ColumnStyles.Add(
             new ColumnStyle(
                 SizeType.Percent,
                 50));
 
-        layout.ColumnStyles.Add(
-            new ColumnStyle(
-                SizeType.Percent,
-                50));
+        //
+        // Five equipment rows.
+        //
+        for (int i = 0;
+             i < 5;
+             i++)
+        {
+            layout.RowStyles.Add(
+                new RowStyle(
+                    SizeType.Absolute,
+                    85));
+        }
+
+        //
+        // Utility row.
+        //
+        layout.RowStyles.Add(
+            new RowStyle(
+                SizeType.Absolute,
+                180));
 
         AddGroup(
             layout,
@@ -203,8 +236,141 @@ public sealed class EquipmentPanel
             1,
             4);
 
+        var utilityGroup =
+            new GroupBox
+            {
+                Text =
+                    "Utility",
+
+                Dock =
+                    DockStyle.Fill,
+
+                Margin =
+                    new Padding(8)
+            };
+
+        BuildUtilityGroup(
+            utilityGroup);
+
+        layout.SetColumnSpan(
+            utilityGroup,
+            2);
+
+        layout.Controls.Add(
+            utilityGroup,
+            0,
+            5);
+
         Controls.Add(
             layout);
+    }
+
+    private void BuildUtilityGroup(
+    GroupBox group)
+    {
+        int leftLabel =
+            25;
+
+        int leftControl =
+            140;
+
+        int rightLabel =
+            390;
+
+        int rightControl =
+            505;
+
+        int y =
+            35;
+
+        AddLabel(
+            group,
+            "Food:",
+            leftLabel,
+            y + 5);
+
+        foodNumeric =
+            CreateNumber(
+                leftControl,
+                y,
+                9999);
+
+        AddLabel(
+            group,
+            "Gold:",
+            rightLabel,
+            y + 5);
+
+        goldNumeric =
+            CreateNumber(
+                rightControl,
+                y,
+                9999);
+
+        y += 45;
+
+        AddLabel(
+            group,
+            "Torches:",
+            leftLabel,
+            y + 5);
+
+        torchesNumeric =
+            CreateNumber(
+                leftControl,
+                y,
+                99);
+
+        AddLabel(
+            group,
+            "Keys:",
+            rightLabel,
+            y + 5);
+
+        keysNumeric =
+            CreateNumber(
+                rightControl,
+                y,
+                99);
+
+        y += 45;
+
+        AddLabel(
+            group,
+            "Skull Keys:",
+            leftLabel,
+            y + 5);
+
+        skullKeysNumeric =
+            CreateNumber(
+                leftControl,
+                y,
+                99);
+
+        AddLabel(
+            group,
+            "Gems:",
+            rightLabel,
+            y + 5);
+
+        gemsNumeric =
+            CreateNumber(
+                rightControl,
+                y,
+                99);
+
+        group.Controls.AddRange(
+            new Control[]
+            {
+            foodNumeric,
+            goldNumeric,
+
+            torchesNumeric,
+            keysNumeric,
+
+            skullKeysNumeric,
+            gemsNumeric
+            });
     }
 
 
@@ -222,10 +388,7 @@ public sealed class EquipmentPanel
                     title,
 
                 Dock =
-                    DockStyle.Fill,
-
-                Height =
-                    115,
+                    DockStyle.Top,
 
                 Margin =
                     new Padding(8)
@@ -243,119 +406,56 @@ public sealed class EquipmentPanel
             row);
     }
 
+    private static NumericUpDown CreateNumber(
+    int x,
+    int y,
+    decimal maximum)
+    {
+        return new NumericUpDown
+        {
+            Left =
+                x,
 
-    //private void WireEvents()
-    //{
-    //    spellSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
+            Top =
+                y,
 
-    //            StoreSpell();
+            Width =
+                110,
 
-    //            ShowSpell();
-    //        };
+            Minimum =
+                0,
 
-    //    reagentSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
+            Maximum =
+                maximum,
 
-    //            StoreReagent();
+            ThousandsSeparator =
+                true
+        };
+    }
 
-    //            ShowReagent();
-    //        };
+    private static void AddLabel(
+        Control parent,
+        string text,
+        int x,
+        int y)
+    {
+        parent.Controls.Add(
+            new Label
+            {
+                Text =
+                    text,
 
-    //    scrollSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
+                Left =
+                    x,
 
-    //            StoreScroll();
+                Top =
+                    y,
 
-    //            ShowScroll();
-    //        };
+                AutoSize =
+                    true
+            });
+    }
 
-    //    potionSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
-
-    //            StorePotion();
-
-    //            ShowPotion();
-    //        };
-
-    //    weaponSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
-
-    //            StoreWeapon();
-
-    //            ShowWeapon();
-    //        };
-
-    //    armorSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
-
-    //            StoreArmor();
-
-    //            ShowArmor();
-    //        };
-
-    //    helmSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
-
-    //            StoreHelm();
-
-    //            ShowHelm();
-    //        };
-
-    //    shieldSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
-
-    //            StoreShield();
-
-    //            ShowShield();
-    //        };
-
-    //    ringSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
-
-    //            StoreRing();
-
-    //            ShowRing();
-    //        };
-
-    //    amuletSelector.SelectionChanged +=
-    //        (_, _) =>
-    //        {
-    //            if (loading)
-    //                return;
-
-    //            StoreAmulet();
-
-    //            ShowAmulet();
-    //        };
-    //}
 
     private void WireEvents()
     {
@@ -619,6 +719,24 @@ public sealed class EquipmentPanel
         amuletSelector.SelectedValue =
             currentAmulet;
 
+        foodNumeric.Value =
+            save.Food;
+
+        goldNumeric.Value =
+            save.Gold;
+
+        torchesNumeric.Value =
+            save.Torches;
+
+        keysNumeric.Value =
+            save.Keys;
+
+        skullKeysNumeric.Value =
+            save.SkullKeys;
+
+        gemsNumeric.Value =
+            save.Gems;
+
         ShowAll();
 
         loading =
@@ -786,6 +904,30 @@ public sealed class EquipmentPanel
         save.SetAmuletQuantity(
             currentAmulet,
             amuletSelector.Quantity);
+
+        save.Food =
+            (ushort)
+        foodNumeric.Value;
+
+        save.Gold =
+            (ushort)
+                goldNumeric.Value;
+
+        save.Torches =
+            (byte)
+                torchesNumeric.Value;
+
+        save.Keys =
+            (byte)
+                keysNumeric.Value;
+
+        save.SkullKeys =
+            (byte)
+                skullKeysNumeric.Value;
+
+        save.Gems =
+            (byte)
+                gemsNumeric.Value;
     }
 
 }
