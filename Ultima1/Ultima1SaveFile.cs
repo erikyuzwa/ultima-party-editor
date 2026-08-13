@@ -75,6 +75,15 @@ public sealed class Ultima1SaveFile
     private const int SpellOffset =
         0x82;
 
+    private const int TransportOffset =
+    0x30;
+
+    private const int PlayerXOffset =
+        0x34;
+
+    private const int PlayerYOffset =
+        0x36;
+
     private byte[] bytes =
         Array.Empty<byte>();
 
@@ -93,6 +102,42 @@ public sealed class Ultima1SaveFile
     public PartyCharacter Character =>
         character;
 
+    public TransportType Transport
+    {
+        get =>
+            (TransportType)
+                ReadUInt16(
+                    TransportOffset);
+
+        set =>
+            WriteUInt16(
+                TransportOffset,
+                (ushort)value);
+    }
+
+    public ushort PlayerX
+    {
+        get =>
+            ReadUInt16(
+                PlayerXOffset);
+
+        set =>
+            WriteUInt16(
+                PlayerXOffset,
+                value);
+    }
+
+    public ushort PlayerY
+    {
+        get =>
+            ReadUInt16(
+                PlayerYOffset);
+
+        set =>
+            WriteUInt16(
+                PlayerYOffset,
+                value);
+    }
     public ushort Gold
     {
         get =>

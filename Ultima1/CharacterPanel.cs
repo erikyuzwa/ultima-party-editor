@@ -41,6 +41,15 @@ public sealed class CharacterPanel
     private readonly NumericUpDown
         intelligenceNumeric;
 
+    private readonly NumericUpDown
+    playerXNumeric;
+
+    private readonly NumericUpDown
+        playerYNumeric;
+
+    private readonly ComboBox
+        transportCombo;
+
     private Ultima1SaveFile? save;
 
     public CharacterPanel()
@@ -224,8 +233,71 @@ public sealed class CharacterPanel
                 intelligenceNumeric
             });
 
+
+        var locationGroup =
+    new GroupBox
+    {
+        Text = "Player Location",
+        Dock = DockStyle.Top,
+        Height = 135,
+
+        Margin =
+            new Padding(
+                0,
+                15,
+                0,
+                0)
+    };
+
+        AddLabel(
+    locationGroup,
+    "X:",
+    25,
+    40);
+
+        playerXNumeric =
+            CreateNumber(
+                80,
+                35,
+                ushort.MaxValue);
+
+        AddLabel(
+            locationGroup,
+            "Y:",
+            230,
+            40);
+
+        playerYNumeric =
+            CreateNumber(
+                285,
+                35,
+                ushort.MaxValue);
+
+        AddLabel(
+            locationGroup,
+            "Transport:",
+            430,
+            40);
+
+        transportCombo =
+            CreateEnumCombo<TransportType>(
+                530,
+                35);
+
+        locationGroup.Controls.AddRange(
+            new Control[]
+            {
+        playerXNumeric,
+        playerYNumeric,
+        transportCombo
+            });
+
+        Controls.Add(
+    locationGroup);
+
         Controls.Add(
             characterGroup);
+
     }
 
     private static NumericUpDown CreateNumber(
@@ -331,6 +403,34 @@ public sealed class CharacterPanel
 
         intelligenceNumeric.Value =
             character.Intelligence;
+
+        //
+        // Player location
+        //
+        playerXNumeric.Value =
+            save.PlayerX;
+
+        playerYNumeric.Value =
+            save.PlayerY;
+
+        ///transportCombo.SelectedIndex =
+        //    (int)save.Transport;
+
+        int transportIndex =
+    (int)save.Transport;
+
+        if (transportIndex >= 0 &&
+            transportIndex <
+                Enum.GetValues<TransportType>().Length)
+        {
+            transportCombo.SelectedIndex =
+                transportIndex;
+        }
+        else
+        {
+            transportCombo.SelectedIndex =
+                -1;
+        }
     }
 
     public void StoreToSave()
@@ -396,5 +496,23 @@ public sealed class CharacterPanel
         character.Intelligence =
             (ushort)
                 intelligenceNumeric.Value;
+
+        //
+        // Player location
+        //
+        save.PlayerX =
+            (ushort)
+                playerXNumeric.Value;
+
+        save.PlayerY =
+            (ushort)
+                playerYNumeric.Value;
+
+        if (transportCombo.SelectedIndex >= 0)
+        {
+            save.Transport =
+                (TransportType)
+                    transportCombo.SelectedIndex;
+        }
     }
 }
