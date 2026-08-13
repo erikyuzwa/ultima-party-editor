@@ -1,12 +1,14 @@
-using UltimaSaveEditor.Ultima4;
 using UltimaSaveEditor.Common;
-using UltimaSaveEditor.Ultima3;
+using UltimaSaveEditor.Ultima1;
 using UltimaSaveEditor.Ultima2;
+using UltimaSaveEditor.Ultima3;
+using UltimaSaveEditor.Ultima4;
 
 namespace ultima_party_editor
 {
     public partial class MainForm : Form
     {
+        private readonly Ultima1EditorControl ultima1Editor;
         private readonly Ultima2EditorControl ultima2Editor;
         private readonly Ultima3EditorControl ultima3Editor;
         private readonly Ultima4EditorControl ultima4Editor;
@@ -19,9 +21,14 @@ namespace ultima_party_editor
 
             ClientSize = new Size(800, 680);
 
+            ultima1Editor = new Ultima1EditorControl();
             ultima2Editor = new Ultima2EditorControl();
             ultima3Editor = new Ultima3EditorControl();
             ultima4Editor = new Ultima4EditorControl();
+
+            ultima1Editor.Dock = DockStyle.Fill;
+            tabPage1.Controls.Add(ultima1Editor);
+            tabPage1.Tag = ultima1Editor;
 
             ultima2Editor.Dock = DockStyle.Fill;
             tabPage2.Controls.Add(ultima2Editor);

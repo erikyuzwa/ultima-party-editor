@@ -4,6 +4,15 @@
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Ultima1\CharacterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Ultima1\EquipmentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Ultima1\Ultima1EditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Ultima2\CharacterPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
