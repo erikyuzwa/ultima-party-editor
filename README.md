@@ -31,7 +31,10 @@ Sosaria!
 - Xenerkes Dragon's [Ultima Savegame Editor](https://ultima1.ultimacodex.com/the-ultima-savegame-editor/) for the inspiration and groundbreaking work!
 - My dad for letting me move the family's AppleIIe to my bedroom at 12 so I
 could stay up all night fighting orcs in Britannia.
-            
+
+*Ultima, Lord British and related names are trademarks of their respective owners.*
+
+
 
 ```
 "Moreover, brethren, I declare unto you the gospel which I preached unto you, which also
