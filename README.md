@@ -17,14 +17,20 @@ Sosaria!
 - Edit at your leisure
 - Use **File->Save** to save your changes. **NB: A backup will be auto-generated to preserve your original**
 
+## DEVELOPER GUIDE
+
+- Clone the project `git clone git@github.com:erikyuzwa/ultima-party-editor.git`
+- Open in Visual Studio Community 2026 or any compatible editor
+- **PULL REQUESTS WELCOMED**
+
 ## CREDITS
 
 - [Lord British](https://x.com/RichardGarriott) and all who helped him through the ages with design, coding and inspiration.
 - [Ultima Codex](https://wiki.ultimacodex.com/) for box art images and overall Ultima project information
 - Martin Brenner's [Ultima Save Game Format Documentation](https://martin.brenner.de/ultima/)
 - Xenerkes Dragon's [Ultima Savegame Editor](https://ultima1.ultimacodex.com/the-ultima-savegame-editor/) for the inspiration and groundbreaking work!
-- Any (and EVERY) fan of the Ultima games and franchise
-
+- My dad for letting me move the family's AppleIIe to my bedroom at 12 so I
+could stay up all night fighting orcs in Britannia.
             
 
 ## LICENSE
