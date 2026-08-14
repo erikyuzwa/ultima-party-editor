@@ -23,6 +23,15 @@ Sosaria!
 - Open in Visual Studio Community 2026 or any compatible editor
 - **PULL REQUESTS WELCOMED**
 
+## RELEASE GUIDE
+
+(Mostly for me because I'm old and I will forget the automation in place.)
+- Do the commits for what's wanted in the release (duh)
+- Update `Version` in `ultima-party-editor.csproj`
+- `git tag v1.x.y`
+- `git push origin v1.x.y`
+- celebrate with more coffee and prayers!
+
 ## CREDITS
 
 - [Lord British](https://x.com/RichardGarriott) and all who helped him through the ages with design, coding and inspiration.
