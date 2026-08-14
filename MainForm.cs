@@ -217,7 +217,7 @@ namespace ultima_party_editor
             if (editor is null)
             {
                 Text =
-                    "Ultima Save Editor";
+                    "Ultima Party Editor";
 
                 return;
             }
@@ -226,14 +226,14 @@ namespace ultima_party_editor
                 editor.Filename is null)
             {
                 Text =
-                    $"Ultima Save Editor - " +
+                    $"Ultima Party Editor - " +
                     $"{editor.GameName}";
 
                 return;
             }
 
             Text =
-                $"Ultima Save Editor - " +
+                $"Ultima Party Editor - " +
                 $"{editor.GameName} - " +
                 $"{Path.GetFileName(editor.Filename)}";
         }

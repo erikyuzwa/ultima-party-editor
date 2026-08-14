@@ -33,6 +33,19 @@ Sosaria!
 could stay up all night fighting orcs in Britannia.
             
 
+"Moreover, brethren, I declare unto you the gospel which I preached unto you, which also
+ye have received, and wherein ye stand; By which also ye are saved, if ye keep in memory
+what I preached unto you, unless ye have believed in vain.
+
+For I delivered unto you first of all that which I also received, how that Christ died
+for our sins according to the scriptures;
+
+And that he was buried, and that he rose again the third day according to the scriptures:"
+- 1 Corinthians 15:1-4
+
+Resolve your Eternal destination right now! 
+
+
 ## LICENSE
 
 Copyright 2026 Erik Yuzwa
