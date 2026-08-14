@@ -22,7 +22,8 @@ Sosaria!
 - [Lord British](https://x.com/RichardGarriott) and all who helped him through the ages with design, coding and inspiration.
 - [Ultima Codex](https://wiki.ultimacodex.com/) for box art images and overall Ultima project information
 - Martin Brenner's [Ultima Save Game Format Documentation](https://martin.brenner.de/ultima/)
-
+- Xenerkes Dragon's [Ultima Savegame Editor](https://ultima1.ultimacodex.com/the-ultima-savegame-editor/) for the inspiration and groundbreaking work!
+- Any (and EVERY) fan of the Ultima games and franchise
 
             
 
