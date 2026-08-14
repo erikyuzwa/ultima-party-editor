@@ -1,0 +1,43 @@
+name: Build Ultima Party Editor
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Publish Windows x64
+        run: >
+          dotnet publish
+          ultima-party-editor.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          --output publish/win-x64
+
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ultima-Party-Editor-Windows-x64
+          path: publish/win-x64/

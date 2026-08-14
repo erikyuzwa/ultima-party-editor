@@ -1,0 +1,64 @@
+name: Release Ultima Party Editor
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Verify tag matches project version
+        shell: pwsh
+        run: |
+          $tagVersion = "${{ github.ref_name }}".TrimStart('v')
+
+          [xml]$project = Get-Content "ultima-party-editor.csproj"
+          $projectVersion = $project.Project.PropertyGroup.Version |
+            Select-Object -First 1
+
+          Write-Host "Tag version:     $tagVersion"
+          Write-Host "Project version: $projectVersion"
+
+          if ($tagVersion -ne $projectVersion) {
+              throw "Tag version does not match the project version."
+          }
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Publish Windows x64
+        run: >
+          dotnet publish
+          ultima-party-editor.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          --output publish/win-x64
+
+      - name: Create ZIP
+        shell: pwsh
+        run: |
+          Compress-Archive `
+            -Path publish/win-x64/* `
+            -DestinationPath Ultima-Party-Editor-${{ github.ref_name }}-win-x64.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            Ultima-Party-Editor-${{ github.ref_name }}-win-x64.zip
+          generate_release_notes: true

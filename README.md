@@ -1,7 +1,30 @@
 # Ultima Party Editor
 
+![Ultima Party Editor in action!](./screenshot.png)
+
 Hail Avatar! Here is a tool to help you and your party on your journeys through
 Sosaria!
+
+## INSTALLATION NOTES
+
+- In the github project's `Releases` area will be a downloadable zip file
+- Extract and run!
+
+## USER GUIDE
+
+- Use the Ultima tab you wish to use
+- Use the **File->Open** menu item to load the appropriate save game file
+- Edit at your leisure
+- Use **File->Save** to save your changes. **NB: A backup will be auto-generated to preserve your original**
+
+## CREDITS
+
+- [Lord British](https://x.com/RichardGarriott) and all who helped him through the ages with design, coding and inspiration.
+- [Ultima Codex](https://wiki.ultimacodex.com/) for box art images and overall Ultima project information
+- Martin Brenner's [Ultima Save Game Format Documentation](https://martin.brenner.de/ultima/)
+
+
+            
 
 ## LICENSE
 
