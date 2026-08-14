@@ -20,7 +20,7 @@ namespace ultima_party_editor
         {
             InitializeComponent();
 
-            Text = "Ultima Save Editor";
+            Text = $"Ultima Party Editor (Version {AppVersion.Version})";
 
             ClientSize = new Size(800, 680);
 
@@ -74,7 +74,7 @@ namespace ultima_party_editor
                 $"Open {editor.GameName} Save";
 
             dialog.Filter =
-                "Save Files (*.sav)|*.sav|" +
+                // "Save Files (*.sav)|*.sav|" +
                 "All Files (*.*)|*.*";
 
             dialog.CheckFileExists = true;
@@ -168,7 +168,7 @@ namespace ultima_party_editor
                 $"Save {editor.GameName} Save As";
 
             dialog.Filter =
-                "Save Files (*.sav)|*.sav|" +
+                // "Save Files (*.sav)|*.sav|" +
                 "All Files (*.*)|*.*";
 
             dialog.FileName =
@@ -269,6 +269,14 @@ namespace ultima_party_editor
         private void SetStatus(string message)
         {
             statusLabel.Text = message;
+        }
+
+        private void aboutUltimaPartyEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var dialog = new AboutForm();
+
+            dialog.ShowDialog(
+                this);
         }
     }
 

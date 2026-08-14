@@ -43,6 +43,8 @@
             exitToolStripMenuItem = new ToolStripMenuItem();
             statusStrip1 = new StatusStrip();
             statusLabel = new ToolStripStatusLabel();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            aboutUltimaPartyEditorToolStripMenuItem = new ToolStripMenuItem();
             tabControl1.SuspendLayout();
             menuStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -114,7 +116,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, toolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 24);
@@ -131,33 +133,33 @@
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(123, 22);
+            openToolStripMenuItem.Size = new Size(180, 22);
             openToolStripMenuItem.Text = "&Open...";
             openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(123, 22);
+            saveToolStripMenuItem.Size = new Size(180, 22);
             saveToolStripMenuItem.Text = "&Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // saveAsToolStripMenuItem
             // 
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            saveAsToolStripMenuItem.Size = new Size(123, 22);
+            saveAsToolStripMenuItem.Size = new Size(180, 22);
             saveAsToolStripMenuItem.Text = "S&ave As...";
             saveAsToolStripMenuItem.Click += saveAsToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(120, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(123, 22);
+            exitToolStripMenuItem.Size = new Size(180, 22);
             exitToolStripMenuItem.Text = "E&xit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -173,10 +175,24 @@
             // statusLabel
             // 
             statusLabel.Name = "statusLabel";
-            statusLabel.Size = new Size(754, 17);
+            statusLabel.Size = new Size(785, 17);
             statusLabel.Spring = true;
             statusLabel.Text = "Ready";
             statusLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { aboutUltimaPartyEditorToolStripMenuItem });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(44, 20);
+            toolStripMenuItem1.Text = "&Help";
+            // 
+            // aboutUltimaPartyEditorToolStripMenuItem
+            // 
+            aboutUltimaPartyEditorToolStripMenuItem.Name = "aboutUltimaPartyEditorToolStripMenuItem";
+            aboutUltimaPartyEditorToolStripMenuItem.Size = new Size(209, 22);
+            aboutUltimaPartyEditorToolStripMenuItem.Text = "&About Ultima Party Editor";
+            aboutUltimaPartyEditorToolStripMenuItem.Click += aboutUltimaPartyEditorToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -215,5 +231,7 @@
         private ToolStripMenuItem exitToolStripMenuItem;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel statusLabel;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem aboutUltimaPartyEditorToolStripMenuItem;
     }
 }
